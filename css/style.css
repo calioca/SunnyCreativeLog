@@ -1,0 +1,85 @@
+@charset "UTF-8";
+body {
+      margin: 0;
+      font-family: system-ui, sans-serif;
+      background: #fff3bf;
+      color: #595651;
+      padding: 24px;
+    }
+
+    .app {
+      max-width: 720px;
+      margin: 0 auto;
+      background: #fffdf6;
+      border-radius: 24px;
+      padding: 24px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+    }
+
+    h1 {
+      margin-top: 0;
+      font-size: 1.8rem;
+    }
+
+    label {
+      display: block;
+      margin-top: 16px;
+      font-weight: bold;
+    }
+
+    input, select, textarea, button {
+      width: 100%;
+      box-sizing: border-box;
+      margin-top: 6px;
+      padding: 10px;
+      border-radius: 12px;
+      border: 1px solid #f2d878;
+      font-size: 1rem;
+    }
+
+    textarea {
+      min-height: 70px;
+    }
+
+    button {
+      margin-top: 20px;
+      background: #f2ca50;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    button:hover{
+      background:#f2b905;
+    }
+
+    .summary {
+      margin-top: 24px;
+      padding: 16px;
+      background: #fff0ad;
+      border-radius: 16px;
+    }
+
+    .log {
+      margin-top: 16px;
+      padding: 16px;
+      border: 1px solid #f2d878;
+      border-radius: 16px;
+      background: #fff;
+    }
+
+    .log-title {
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+
+    .log-meta {
+      margin-top: 6px;
+      color: #595651;
+      font-size: 0.9rem;
+    }
+
+    .delete-btn {
+      background: #ccc;
+      margin-top: 12px;
+    }
