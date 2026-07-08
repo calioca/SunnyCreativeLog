@@ -107,19 +107,24 @@ function deleteLog(id) {
 function renderWorkOptions() {
   const works = getWorks();
   const workSelect = document.getElementById("workSelect");
+  const selectedPlatform = document.getElementById("platform").value;
 
   if (!workSelect) return;
 
-  if (works.length === 0) {
+  const filteredWorks = works.filter(work =>
+    work.platform === selectedPlatform
+  );
+
+  if (filteredWorks.length === 0) {
     workSelect.innerHTML =
-      `<option value="">まだ作品がありません</option>`;
+      `<option value="">この種別の作品はまだありません</option>`;
     return;
   }
 
-  workSelect.innerHTML = works.map(work => `
+  workSelect.innerHTML = filteredWorks.map(work => `
     <option value="${work.id}">
-      ${work.platform}：${work.title}
-     </option>
+      ${work.title}
+    </option>
   `).join("");
 }
 
@@ -173,4 +178,5 @@ function render() {
   renderWorkOptions();
 }
 
+document.getElementById("platform").addEventListener("change", renderWorkOptions);
 render();
