@@ -40,6 +40,14 @@ function addLog() {
   }
   const platform = document.getElementById("platform").value;
   const selectedWorkId = document.getElementById("workSelect").value;
+  
+  const chars = Number(document.getElementById("chars").value) || 0;
+  const memo = document.getElementById("memo").value.trim();
+
+  if (chars === 0 && memo === "") {
+      alert("文字数かメモを入力してください。");
+      return;
+  }
 
   const works = getWorks();
   let work;
