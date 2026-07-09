@@ -94,3 +94,16 @@ button:hover{
   background: #ccc;
   margin-top: 12px;
 }
+
+.work-actions {
+  margin-top: 28px;
+  padding: 16px;
+  border: 1px dashed #f2d878;
+  border-radius: 16px;
+  background: #fffaf0;
+}
+
+.work-actions h2 {
+  margin-top: 0;
+  font-size: 1.2rem;
+}

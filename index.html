@@ -43,6 +43,16 @@
     <textarea id="memo" placeholder="例：コメダで書き上げた"></textarea>
 
     <button onclick="addLog()">記録する</button>
+    
+    <div class="work-actions">
+      <h2>作品管理</h2>
+
+      <label>選択中の作品名を編集</label>
+      <input type="text" id="editWorkTitle" placeholder="作品名を変更する場合に入力" />
+
+      <button onclick="updateWorkTitle()">作品名を更新する</button>
+      <button class="delete-btn" onclick="deleteSelectedWorkIfEmpty()">ログのない作品を削除する</button>
+    </div>
 
     <div class="summary" id="summary"></div>
 

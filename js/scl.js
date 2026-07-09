@@ -128,6 +128,83 @@ function renderWorkOptions() {
   `).join("");
 }
 
+function updateWorkTitle() {
+  const selectedWorkId = document.getElementById("workSelect").value;
+  const newTitle = document.getElementById("editWorkTitle").value.trim();
+
+  if (!selectedWorkId) {
+    alert("作品を選択してください。");
+    return;
+  }
+
+  if (!newTitle) {
+    alert("新しい作品名を入力してください。");
+    return;
+  }
+
+  const works = getWorks();
+  const work = works.find(w => String(w.id) === selectedWorkId);
+
+  if (!work) {
+    alert("作品が見つかりません。");
+    return;
+  }
+
+  const sameWork = works.find(w =>
+    w.id !== work.id &&
+    w.platform === work.platform &&
+    w.title === newTitle
+  );
+
+  if (sameWork) {
+    alert("同じ種別に同じ作品名がすでにあります。");
+    return;
+  }
+
+  work.title = newTitle;
+  saveWorks(works);
+
+  document.getElementById("editWorkTitle").value = "";
+
+  render();
+}
+
+function deleteSelectedWorkIfEmpty() {
+  const selectedWorkId = document.getElementById("workSelect").value;
+
+  if (!selectedWorkId) {
+    alert("作品を選択してください。");
+    return;
+  }
+
+  const logs = getLogs();
+  const hasLogs = logs.some(log => String(log.workId) === selectedWorkId);
+
+  if (hasLogs) {
+    alert("ログがある作品は削除できません。");
+    return;
+  }
+
+  const works = getWorks();
+  const work = works.find(w => String(w.id) === selectedWorkId);
+
+  if (!work) {
+    alert("作品が見つかりません。");
+    return;
+  }
+
+  const confirmed = confirm(`「${work.title}」を削除しますか？`);
+
+  if (!confirmed) return;
+
+  const updatedWorks = works.filter(w => String(w.id) !== selectedWorkId);
+  saveWorks(updatedWorks);
+
+  document.getElementById("editWorkTitle").value = "";
+
+  render();
+}
+
 function render() {
   const works = getWorks();
   const logs = getLogs().sort((a, b) => b.date.localeCompare(a.date));
