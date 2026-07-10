@@ -1,3 +1,4 @@
+/* 今日の日付を入力フォーム用の形式で取得する */
 function getLocalDateString() {
   const date = new Date();
   const year = date.getFullYear();
@@ -15,22 +16,27 @@ const dateInput = document.getElementById("date");
 const today = getLocalDateString();
 dateInput.value = today;
 
+/* 作品を取得する */
 function getWorks() {
   return JSON.parse(localStorage.getItem(WORKS_KEY)) || [];
 }
 
+/* 作品を保存する */
 function saveWorks(works) {
   localStorage.setItem(WORKS_KEY, JSON.stringify(works));
 }
 
+/* ログを取得する */
 function getLogs() {
   return JSON.parse(localStorage.getItem(LOGS_KEY)) || [];
 }
 
+/* ログを保存する */
 function saveLogs(logs) {
   localStorage.setItem(LOGS_KEY, JSON.stringify(logs));
 }
 
+/* 創作ログを保存する */
 function saveLog() {
   const newTitle = document.getElementById("newTitle").value.trim();
   const platform = document.getElementById("platform").value;
@@ -93,7 +99,7 @@ function saveLog() {
     );
 
     if (index === -1) {
-      alert("編集するログが見つかりません。");
+      alert("編集する創作ログが見つかりません。");
       cancelLogEdit();
       return;
     }
@@ -106,12 +112,14 @@ function saveLog() {
   render();
 }
 
+/* 創作ログを削除する */
 function deleteLog(id) {
   const logs = getLogs().filter(log => log.id !== id);
   saveLogs(logs);
   render();
 }
 
+/* 作品一覧を選択欄に表示する */
 function renderWorkOptions() {
   const works = getWorks();
   const workSelect = document.getElementById("workSelect");
@@ -136,6 +144,7 @@ function renderWorkOptions() {
   `).join("");
 }
 
+/* 作品名を更新する */
 function updateWorkTitle() {
   const selectedWorkId = document.getElementById("workSelect").value;
   const newTitle = document.getElementById("editWorkTitle").value.trim();
@@ -177,6 +186,7 @@ function updateWorkTitle() {
   render();
 }
 
+/* 創作ログのない作品を削除する */
 function deleteSelectedWorkIfEmpty() {
   const selectedWorkId = document.getElementById("workSelect").value;
 
@@ -189,7 +199,7 @@ function deleteSelectedWorkIfEmpty() {
   const hasLogs = logs.some(log => String(log.workId) === selectedWorkId);
 
   if (hasLogs) {
-    alert("ログがある作品は削除できません。");
+    alert("創作ログがある作品は削除できません。");
     return;
   }
 
@@ -213,6 +223,7 @@ function deleteSelectedWorkIfEmpty() {
   render();
 }
 
+/* 保存されているデータをもとに画面全体を更新する */
 function render() {
   const works = getWorks();
   const logs = getLogs().sort((a, b) => b.date.localeCompare(a.date));
@@ -269,7 +280,7 @@ function render() {
   renderWorkOptions();
 }
 
-/* フォームを初期状態に戻す関数 */
+/* 創作ログ入力フォームを初期状態に戻す */
 function resetLogForm() {
   editingLogId = null;
 
@@ -282,6 +293,7 @@ function resetLogForm() {
   document.getElementById("newTitle").disabled = false;
 }
 
+/* 指定したIDの創作ログを編集できる状態にする */
 function editLog(id) {
   const logs = getLogs();
   const works = getWorks();
@@ -289,14 +301,14 @@ function editLog(id) {
   const log = logs.find(log => log.id === id);
 
   if (!log) {
-    alert("編集するログが見つかりません。");
+    alert("編集する創作ログが見つかりません。");
     return;
   }
 
   const work = works.find(work => work.id === log.workId);
 
   if (!work) {
-    alert("ログに対応する作品が見つかりません。");
+    alert("創作ログに対応する作品が見つかりません。");
     return;
   }
 
@@ -324,6 +336,7 @@ function editLog(id) {
   });
 }
 
+/* 編集モードを終了し、新規入力モードに戻す */
 function cancelLogEdit() {
   resetLogForm();
 
