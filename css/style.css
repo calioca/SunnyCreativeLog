@@ -64,6 +64,13 @@ button:hover{
   background:#f2b905;
 }
 
+.today-summary {
+  margin-top: -4px;
+  margin-bottom: 16px;
+  font-size: 0.9rem;
+  color: #7a756d;
+}
+
 .summary {
   margin-top: 24px;
   padding: 16px;
@@ -88,6 +95,32 @@ button:hover{
   margin-top: 6px;
   color: #595651;
   font-size: 0.9rem;
+}
+
+.log-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.log-actions button {
+  width: auto;
+  min-width: 70px;
+  margin: 0;
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  border-radius: 10px;
+}
+
+.edit-btn {
+  background: #f2ca50;
+  color: #595651;
+}
+
+.log-actions .delete-btn {
+  background: #ccc;
+  color: #595651;
 }
 
 .delete-btn {

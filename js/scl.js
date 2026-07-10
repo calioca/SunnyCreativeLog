@@ -284,13 +284,14 @@ function render() {
           ${log.date} / ${platform} / ${log.workType} / ${log.chars}字
         </div>
         ${log.memo ? `<p>${log.memo}</p>` : ""}
-        <button onclick="editLog(${log.id})">
-          編集
-        </button>
-
-        <button class="delete-btn" onclick="deleteLog(${log.id})">
-          削除
-        </button>
+        <div class="log-actions">
+          <button class="edit-btn" onclick="editLog(${log.id})">
+            編集
+          </button>
+          <button class="delete-btn" onclick="deleteLog(${log.id})">
+            削除
+          </button>
+        </div>
       </div>
     `;
   }).join("");
@@ -323,7 +324,7 @@ function editLog(id) {
     return;
   }
 
-  const work = works.find(work => work.id === log.workId);
+  const Ωωwork = works.find(work => work.id === log.workId);
 
   if (!work) {
     alert("創作ログに対応する作品が見つかりません。");
