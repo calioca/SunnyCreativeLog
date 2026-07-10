@@ -1,3 +1,16 @@
+// ========================================
+// 定数・状態
+// ========================================
+const WORKS_KEY = "sclWorks";
+const LOGS_KEY = "sclLogs";
+let editingLogId = null;
+
+const dateInput = document.getElementById("date");
+
+// ========================================
+// 日付
+// ========================================
+
 /* 今日の日付を入力フォーム用の形式で取得する */
 function getLocalDateString() {
   const date = new Date();
@@ -8,13 +21,9 @@ function getLocalDateString() {
   return `${year}-${month}-${day}`;
 }
 
-const WORKS_KEY = "sclWorks";
-const LOGS_KEY = "sclLogs";
-let editingLogId = null;
-
-const dateInput = document.getElementById("date");
-const today = getLocalDateString();
-dateInput.value = today;
+// ========================================
+// データの取得・保存
+// ========================================
 
 /* 作品を取得する */
 function getWorks() {
@@ -35,6 +44,11 @@ function getLogs() {
 function saveLogs(logs) {
   localStorage.setItem(LOGS_KEY, JSON.stringify(logs));
 }
+
+
+// ========================================
+// 創作ログ
+// ========================================
 
 /* 創作ログを保存する */
 function saveLog() {
@@ -118,6 +132,10 @@ function deleteLog(id) {
   saveLogs(logs);
   render();
 }
+
+// ========================================
+// 作品管理
+// ========================================
 
 /* 作品一覧を選択欄に表示する */
 function renderWorkOptions() {
@@ -336,6 +354,10 @@ function editLog(id) {
   });
 }
 
+// ========================================
+// 画面表示
+// ========================================
+
 /* 編集モードを終了し、新規入力モードに戻す */
 function cancelLogEdit() {
   resetLogForm();
@@ -345,5 +367,15 @@ function cancelLogEdit() {
   renderWorkOptions();
 }
 
-document.getElementById("platform").addEventListener("change", renderWorkOptions);
+// ========================================
+// 初期化
+// ========================================
+
+const today = getLocalDateString();
+dateInput.value = today;
+
+document.getElementById("platform").addEventListener(
+    "change",
+    renderWorkOptions
+);
 render();
