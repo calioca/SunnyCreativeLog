@@ -44,7 +44,16 @@
     <label>メモ</label>
     <textarea id="memo" placeholder="例：コメダで書き上げた"></textarea>
 
-    <button onclick="addLog()">記録する</button>
+    <button id="saveLogButton" onclick="saveLog()">記録する</button>
+
+    <button
+      id="cancelEditButton"
+      class="delete-btn"
+      onclick="cancelLogEdit()"
+      hidden
+    >
+      編集をキャンセル
+    </button>
     
     <div class="work-actions">
       <h2>作品管理</h2>
