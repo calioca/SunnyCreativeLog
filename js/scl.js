@@ -9,6 +9,7 @@ function getLocalDateString() {
 
 const WORKS_KEY = "sclWorks";
 const LOGS_KEY = "sclLogs";
+let editingLogId = null;
 
 const dateInput = document.getElementById("date");
 const today = getLocalDateString();
@@ -30,35 +31,30 @@ function saveLogs(logs) {
   localStorage.setItem(LOGS_KEY, JSON.stringify(logs));
 }
 
-function addLog() {
-  const newTitle = document
-     .getElementById("newTitle")
-     .value
-     .trim();
-  if (newTitle === "") {
-     // 新しい作品は作らない
-  }
+function saveLog() {
+  const newTitle = document.getElementById("newTitle").value.trim();
   const platform = document.getElementById("platform").value;
   const selectedWorkId = document.getElementById("workSelect").value;
-  
   const chars = Number(document.getElementById("chars").value) || 0;
   const memo = document.getElementById("memo").value.trim();
 
   if (chars === 0 && memo === "") {
-      alert("文字数かメモを入力してください。");
-      return;
+    alert("文字数かメモを入力してください。");
+    return;
   }
 
   const works = getWorks();
   let work;
 
-  if (newTitle) {
-  work = works.find(w =>
-    w.title === newTitle &&
-    w.platform === platform
-  );
+  if (editingLogId !== null) {
+    work = works.find(w => String(w.id) === selectedWorkId);
+  } else if (newTitle) {
+    work = works.find(w =>
+      w.title === newTitle &&
+      w.platform === platform
+    );
 
-  if (!work) {
+    if (!work) {
       work = {
         id: Date.now(),
         title: newTitle,
@@ -74,27 +70,39 @@ function addLog() {
   }
 
   if (!work) {
-     alert("作品を選ぶか、新しい作品名を入力してください。");
-     return;
+    alert("作品を選ぶか、新しい作品名を入力してください。");
+    return;
   }
 
   const log = {
-    id: Date.now() + 1,
+    id: editingLogId ?? Date.now(),
     workId: work.id,
     date: document.getElementById("date").value,
     workType: document.getElementById("workType").value,
-    chars: Number(document.getElementById("chars").value) || 0,
-    memo: document.getElementById("memo").value
+    chars,
+    memo
   };
 
   const logs = getLogs();
-  logs.push(log);
+
+  if (editingLogId === null) {
+    logs.push(log);
+  } else {
+    const index = logs.findIndex(
+      existingLog => existingLog.id === editingLogId
+    );
+
+    if (index === -1) {
+      alert("編集するログが見つかりません。");
+      cancelLogEdit();
+      return;
+    }
+
+    logs[index] = log;
+  }
+
   saveLogs(logs);
-
-  document.getElementById("newTitle").value = "";
-  document.getElementById("chars").value = "";
-  document.getElementById("memo").value = "";
-
+  resetLogForm();
   render();
 }
 
@@ -247,11 +255,80 @@ function render() {
           ${log.date} / ${platform} / ${log.workType} / ${log.chars}字
         </div>
         ${log.memo ? `<p>${log.memo}</p>` : ""}
-        <button class="delete-btn" onclick="deleteLog(${log.id})">削除</button>
+        <button onclick="editLog(${log.id})">
+          編集
+        </button>
+
+        <button class="delete-btn" onclick="deleteLog(${log.id})">
+          削除
+        </button>
       </div>
     `;
   }).join("");
   
+  renderWorkOptions();
+}
+
+/* フォームを初期状態に戻す関数 */
+function resetLogForm() {
+  editingLogId = null;
+
+  document.getElementById("newTitle").value = "";
+  document.getElementById("chars").value = "";
+  document.getElementById("memo").value = "";
+
+  document.getElementById("saveLogButton").textContent = "記録する";
+  document.getElementById("cancelEditButton").hidden = true;
+  document.getElementById("newTitle").disabled = false;
+}
+
+function editLog(id) {
+  const logs = getLogs();
+  const works = getWorks();
+
+  const log = logs.find(log => log.id === id);
+
+  if (!log) {
+    alert("編集するログが見つかりません。");
+    return;
+  }
+
+  const work = works.find(work => work.id === log.workId);
+
+  if (!work) {
+    alert("ログに対応する作品が見つかりません。");
+    return;
+  }
+
+  editingLogId = id;
+
+  document.getElementById("date").value = log.date;
+  document.getElementById("platform").value = work.platform;
+
+  renderWorkOptions();
+
+  document.getElementById("workSelect").value = String(work.id);
+  document.getElementById("workType").value = log.workType;
+  document.getElementById("chars").value = log.chars;
+  document.getElementById("memo").value = log.memo;
+
+  document.getElementById("newTitle").value = "";
+  document.getElementById("newTitle").disabled = true;
+
+  document.getElementById("saveLogButton").textContent = "更新する";
+  document.getElementById("cancelEditButton").hidden = false;
+
+  document.getElementById("date").scrollIntoView({
+    behavior: "smooth",
+    block: "start"
+  });
+}
+
+function cancelLogEdit() {
+  resetLogForm();
+
+  dateInput.value = getLocalDateString();
+
   renderWorkOptions();
 }
 
