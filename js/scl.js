@@ -401,6 +401,25 @@ function showWorkDetail(workId) {
   const workLogs = logs.filter(
     log => String(log.workId) === String(work.id)
   );
+  const sortedWorkLogs = [...workLogs].sort(
+    (a, b) => b.date.localeCompare(a.date)
+  );
+
+  const workDetailLogs = document.getElementById("workDetailLogs");
+
+  if (sortedWorkLogs.length === 0) {
+    workDetailLogs.innerHTML =
+      `<p class="empty-message">この作品のログはまだありません。</p>`;
+  } else {
+    workDetailLogs.innerHTML = sortedWorkLogs.map(log => `
+      <div class="work-detail-log">
+        <div class="work-detail-log-meta">
+          ${log.date} / ${log.workType} / ${log.chars}字
+        </div>
+        ${log.memo ? `<p>${log.memo}</p>` : ""}
+      </div>
+    `).join("");
+  }
 
   const totalChars = workLogs.reduce(
     (sum, log) => sum + (Number(log.chars) || 0),

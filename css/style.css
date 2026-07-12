@@ -200,6 +200,28 @@ button:hover{
   font-size: 1.1rem;
 }
 
+.work-detail-log {
+  padding: 16px 0;
+  border-bottom: 1px solid #eee3c8;
+}
+
+.work-detail-log:last-child {
+  border-bottom: none;
+}
+
+.work-detail-log-meta {
+  font-size: 0.9rem;
+  color: #7a756d;
+}
+
+.work-detail-log p {
+  margin: 8px 0 0;
+}
+
+.empty-message {
+  color: #7a756d;
+}
+
 .secondary-btn {
   width: auto;
   padding: 8px 14px;
