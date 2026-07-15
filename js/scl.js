@@ -249,6 +249,15 @@ function render() {
   const todayLogs = logs.filter(log => log.date === today);
 
   const todayTotal = todayLogs.reduce((sum, log) => sum + log.chars, 0);
+  
+  const totalChars = todayLogs.reduce(
+    (sum, log) => sum + Number(log.chars),
+    0
+  );
+  
+  const workCount = new Set(
+    todayLogs.map(log => log.workId)
+  ).size;
 
   const noteTotal = todayLogs
     .filter(log => {
@@ -266,7 +275,7 @@ function render() {
 
   document.getElementById("summary").innerHTML = `
     <strong>🌞 今日の創作</strong><br>
-    合計：${todayTotal}字 / ${todayLogs.length}件<br>
+    ${workCount}作品 / ${todayTotal.toLocaleString()}文字<br>
     note：${noteTotal}字<br>
     しずかなインターネット：${shizukanaTotal}字
   `;
