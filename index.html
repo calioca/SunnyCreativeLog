@@ -13,9 +13,32 @@
       <h1>☀️ Sunny Creative Log</h1>
       <p>創ることを、少しずつ積み重ねる。</p>
     </header>
+        
     
     <div id="mainView">       
-       <div class="summary" id="summary"></div>
+       <section class="summary" id="summary">
+         <strong>🌞 今日の創作</strong>
+
+         <div class="today-summary-main">
+           <div class="summary-item">
+             <span id="todayWorkCount" class="summary-number">0</span>
+             <span class="summary-label">作品</span>
+           </div>
+           
+           <div class="summary-item">
+             <span id="todayCharCount" class="summary-number">0</span>
+             <span class="summary-label">文字</span>
+           </div>
+         </div>
+
+         <div class="today-summary-platforms">
+           <div>note：<span id="todayNoteChars">0</span>字</div>
+           <div>
+             しずかなインターネット：
+             <span id="todayShizukanaChars">0</span>字
+           </div>
+         </div>
+       </section>
        
        <label>日付</label>
        <input type="date" id="date" />

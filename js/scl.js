@@ -273,12 +273,22 @@ function render() {
     })
     .reduce((sum, log) => sum + log.chars, 0);
 
-  document.getElementById("summary").innerHTML = `
-    <strong>🌞 今日の創作</strong><br>
-    ${workCount}作品 / ${todayTotal.toLocaleString()}文字<br>
-    note：${noteTotal}字<br>
-    しずかなインターネット：${shizukanaTotal}字
-  `;
+  document.getElementById("todayWorkCount").textContent = workCount;
+
+  document.getElementById("todayCharCount").textContent =
+    todayTotal.toLocaleString();
+
+  document.getElementById("todayWorkCount").textContent =
+    workCount;
+
+  document.getElementById("todayCharCount").textContent =
+    todayTotal.toLocaleString();
+
+  document.getElementById("todayNoteChars").textContent =
+    noteTotal.toLocaleString();
+
+  document.getElementById("todayShizukanaChars").textContent =
+    shizukanaTotal.toLocaleString();
 
   document.getElementById("logs").innerHTML = logs.map(log => {
     const work = works.find(w => w.id === log.workId);
