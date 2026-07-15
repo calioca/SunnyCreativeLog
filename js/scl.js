@@ -137,7 +137,7 @@ function deleteLog(id) {
 // 作品管理
 // ========================================
 
-/* 作品一覧を選択欄に表示する */
+/* 選択中の種別に対応する作品を、新しい順で選択欄に表示する */
 function renderWorkOptions() {
   const works = getWorks();
   const workSelect = document.getElementById("workSelect");
@@ -145,9 +145,9 @@ function renderWorkOptions() {
 
   if (!workSelect) return;
 
-  const filteredWorks = works.filter(work =>
-    work.platform === selectedPlatform
-  );
+  const filteredWorks = works
+    .filter(work => work.platform === selectedPlatform)
+    .sort((a, b) => Number(b.id) - Number(a.id));
 
   if (filteredWorks.length === 0) {
     workSelect.innerHTML =
