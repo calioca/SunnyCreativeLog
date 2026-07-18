@@ -100,12 +100,17 @@ function saveLog() {
     date: document.getElementById("date").value,
     workType: document.getElementById("workType").value,
     chars,
-    memo
+    memo,
+    createdAt:
+      editingLogId === null
+        ? new Date().toISOString()
+        : undefined
   };
 
   const logs = getLogs();
 
   if (editingLogId === null) {
+    log.createdAt = new Date().toISOString();
     logs.push(log);
   } else {
     const index = logs.findIndex(
@@ -113,11 +118,12 @@ function saveLog() {
     );
 
     if (index === -1) {
-      alert("編集する創作ログが見つかりません。");
+      alert("編集するログが見つかりません。");
       cancelLogEdit();
       return;
     }
 
+    log.createdAt = logs[index].createdAt;
     logs[index] = log;
   }
 
