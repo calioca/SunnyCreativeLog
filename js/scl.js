@@ -273,39 +273,7 @@ function render() {
   const logs = getLogs();
   const sortedLogs = sortLogsByNewest(logs);
 
-  const todayLogs = sortedLogs.filter(log => log.date === today);
-
-  const todayTotal = todayLogs.reduce((sum, log) => sum + log.chars, 0);
-  
-  const touchedWorkCount = new Set(
-    todayLogs.map(log => log.workId)
-  ).size;
-
-  const noteTotal = todayLogs
-    .filter(log => {
-      const work = works.find(w => w.id === log.workId);
-      return work && work.platform === "note";
-    })
-    .reduce((sum, log) => sum + log.chars, 0);
-
-  const shizukanaTotal = todayLogs
-    .filter(log => {
-      const work = works.find(w => w.id === log.workId);
-      return work && work.platform === "しずかなインターネット";
-    })
-    .reduce((sum, log) => sum + log.chars, 0);
-
-  document.getElementById("todayWorkCount").textContent =
-    touchedWorkCount;
-
-  document.getElementById("todayCharCount").textContent =
-    todayTotal.toLocaleString();
-
-  document.getElementById("todayNoteChars").textContent =
-    noteTotal.toLocaleString();
-
-  document.getElementById("todayShizukanaChars").textContent =
-    shizukanaTotal.toLocaleString();
+  renderTodaySummary(works, logs);
 
   document.getElementById("logs").innerHTML = sortedLogs.map(log => {
     const work = works.find(w => w.id === log.workId);
@@ -389,6 +357,53 @@ function editLog(id) {
     behavior: "smooth",
     block: "start"
   });
+}
+
+/* 今日の創作の集計結果を表示する */
+function renderTodaySummary(works, logs) {
+  const todayLogs = logs.filter(log => log.date === today);
+
+  const todayTotal = todayLogs.reduce(
+    (sum, log) => sum + Number(log.chars),
+    0
+  );
+
+  const touchedWorkCount = new Set(
+    todayLogs.map(log => log.workId)
+  ).size;
+
+  const noteTotal = todayLogs
+    .filter(log => {
+      const work = works.find(w => w.id === log.workId);
+      return work && work.platform === "note";
+    })
+    .reduce(
+      (sum, log) => sum + Number(log.chars),
+      0
+    );
+
+  const shizukanaTotal = todayLogs
+    .filter(log => {
+      const work = works.find(w => w.id === log.workId);
+      return work &&
+        work.platform === "しずかなインターネット";
+    })
+    .reduce(
+      (sum, log) => sum + Number(log.chars),
+      0
+    );
+
+  document.getElementById("todayWorkCount").textContent =
+    touchedWorkCount;
+
+  document.getElementById("todayCharCount").textContent =
+    todayTotal.toLocaleString();
+
+  document.getElementById("todayNoteChars").textContent =
+    noteTotal.toLocaleString();
+
+  document.getElementById("todayShizukanaChars").textContent =
+    shizukanaTotal.toLocaleString();
 }
 
 // ========================================
