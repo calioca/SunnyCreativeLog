@@ -338,6 +338,16 @@ function removeWorkIfNoLogs(workId, logs) {
   }
 
   const works = getWorks();
+  
+  console.log("workId:", workId);
+
+  works.forEach(work => {
+    console.log(
+      "work.id =", work.id,
+      "一致?", String(work.id) === String(workId)
+    );
+  });
+  //ここまで
 
   const updatedWorks = works.filter(
     work => String(work.id) !== String(workId)
