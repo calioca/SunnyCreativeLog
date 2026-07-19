@@ -15,12 +15,12 @@ body {
 }
 
 .app {
-  max-width: 720px;
+  max-width: 1040px;
   margin: 0 auto;
   background: #fffdf6;
   border-radius: 24px;
   padding: 24px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
 }
 
 label {
@@ -42,7 +42,7 @@ h1 {
 ======================================== */
 .dashboard {
   display: grid;
-  grid-template-columns: minmax(0, 2fr) minmax(280px, 1fr);
+  grid-template-columns: minmax(0, 2.2fr) 300px;
   gap: 32px;
   align-items: start;
 }
@@ -66,7 +66,10 @@ h1 {
 /* ========================================
    フォーム
 ======================================== */
-input, select, textarea, button {
+input, 
+select,
+textarea,
+button {
   width: 100%;
   max-width: 100%;
   box-sizing: border-box;
@@ -76,6 +79,7 @@ input, select, textarea, button {
   border: 1px solid #f2d878;
   font-size: 1rem;
 }
+
 input[type="date"] {
   width: 100%;
   max-width: 100%;
@@ -104,7 +108,7 @@ button {
 }
 
 button:hover{
-  background:#f2b905;
+  background: #f2b905;
 }
 
 .edit-btn {
@@ -121,7 +125,7 @@ button:hover{
 .secondary-btn {
   width: auto;
   padding: 8px 14px;
-  margin-top: 0px;
+  margin-top: 0;
 }
 
 .work-detail-button {
