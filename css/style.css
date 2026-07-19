@@ -1,5 +1,9 @@
 @charset "UTF-8";
 /* ========================================
+   基本設定
+======================================== */
+
+/* ========================================
    全体レイアウト
 ======================================== */
 body {
@@ -19,11 +23,6 @@ body {
   box-shadow: 0 8px 24px rgba(0,0,0,0.08);
 }
 
-h1 {
-  margin-top: 0;
-  font-size: 1.8rem;
-}
-
 label {
   display: block;
   margin-top: 16px;
@@ -31,9 +30,16 @@ label {
 }
 
 /* ========================================
+   ヘッダー
+======================================== */
+h1 {
+  margin-top: 0;
+  font-size: 1.8rem;
+}
+
+/* ========================================
    ダッシュボード
 ======================================== */
-
 .dashboard {
   display: grid;
   grid-template-columns: minmax(0, 2fr) minmax(280px, 1fr);
@@ -58,7 +64,7 @@ label {
 }
 
 /* ========================================
-   入力フォーム
+   フォーム
 ======================================== */
 input, select, textarea, button {
   width: 100%;
@@ -85,6 +91,9 @@ textarea {
   min-height: 70px;
 }
 
+/* ========================================
+   ボタン
+======================================== */
 button {
   margin-top: 20px;
   background: #f2ca50;
@@ -93,25 +102,60 @@ button {
   cursor: pointer;
   font-weight: bold;
 }
+
 button:hover{
   background:#f2b905;
 }
 
-/* ========================================
-   今日の創作
-======================================== */
-.today-summary {
-  margin-top: -4px;
-  margin-bottom: 16px;
-  font-size: 0.9rem;
-  color: #7a756d;
+.edit-btn {
+  background: #f2ca50;
+  color: #595651;
 }
 
+.delete-btn {
+  background: #ccc;
+  color: #595651;
+  margin-top: 12px;
+}
+
+.secondary-btn {
+  width: auto;
+  padding: 8px 14px;
+  margin-top: 0px;
+}
+
+.work-detail-button {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 8px;
+}
+
+/* ========================================
+   サマリー(今日・今月の創作)  
+======================================== */
 .summary {
   margin-top: 24px;
   padding: 16px;
   background: #fff0ad;
   border-radius: 16px;
+}
+
+.summary-item {
+  text-align: center;
+}
+
+.summary-number {
+  display: block;
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.summary-label {
+  display: block;
+  margin-top: 4px;
+  font-size: 0.9rem;
+  color: #7a756d;
 }
 
 .today-summary-main {
@@ -154,6 +198,22 @@ button:hover{
 }
 
 /* ========================================
+   作品管理
+======================================== */
+.work-actions {
+  margin-top: 28px;
+  padding: 16px;
+  border: 1px dashed #f2d878;
+  border-radius: 16px;
+  background: #fffaf0;
+}
+
+.work-actions h2 {
+  margin-top: 0;
+  font-size: 1.2rem;
+}
+
+/* ========================================
    ログ一覧
 ======================================== */
 .log {
@@ -191,43 +251,9 @@ button:hover{
   border-radius: 10px;
 }
 
-.edit-btn {
-  background: #f2ca50;
-  color: #595651;
-}
-
-.log-actions .delete-btn {
-  background: #ccc;
-  color: #595651;
-}
-
-.delete-btn {
-  background: #ccc;
-  margin-top: 12px;
-}
-
 /* ========================================
    作品詳細
 ======================================== */
-.work-detail-button {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 8px;
-}
-
-.work-actions {
-  margin-top: 28px;
-  padding: 16px;
-  border: 1px dashed #f2d878;
-  border-radius: 16px;
-  background: #fffaf0;
-}
-
-.work-actions h2 {
-  margin-top: 0;
-  font-size: 1.2rem;
-}
-
 .work-detail {
   padding: 12px 24px 24px;
 }
@@ -258,24 +284,6 @@ button:hover{
   background: #fff;
 }
 
-.summary-item {
-  text-align: center;
-}
-
-.summary-number {
-  display: block;
-  font-size: 2rem;
-  font-weight: 700;
-  line-height: 1;
-}
-
-.summary-label {
-  display: block;
-  margin-top: 4px;
-  font-size: 0.9rem;
-  color: #7a756d;
-}
-
 .work-detail-subtitle {
   margin-top: 24px;
   margin-bottom: 8px;
@@ -303,14 +311,6 @@ button:hover{
 .empty-message {
   color: #7a756d;
 }
-
-.secondary-btn {
-  width: auto;
-  padding: 8px 14px;
-  margin-top: 0px;
-}
-
-
 
 /* ========================================
    レスポンシブ
