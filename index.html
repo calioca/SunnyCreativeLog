@@ -14,144 +14,204 @@
       <p>創ることを、少しずつ積み重ねる。</p>
     </header>
         
-    
-    <div id="mainView">       
-       <section class="summary" id="summary">
-         <strong>🌞 今日の創作</strong>
+    <div id="mainView">
+      <div class="dashboard">
+        <main class="dashboard-main">
+          <label>日付</label>
+          <input type="date" id="date" />
 
-         <div class="today-summary-main">
-           <div class="summary-item">
-             <span id="todayWorkCount" class="summary-number">0</span>
-             <span class="summary-label">作品</span>
-           </div>
-           
-           <div class="summary-item">
-             <span id="todayCharCount" class="summary-number">0</span>
-             <span class="summary-label">文字</span>
-           </div>
-         </div>
+          <label>種別</label>
+          <select id="platform">
+            <option value="note">note</option>
+            <option value="しずかなインターネット">
+              しずかなインターネット
+            </option>
+            <option value="その他">その他</option>
+          </select>
 
-         <div class="today-summary-platforms">
-           <div>note：<span id="todayNoteChars">0</span>字</div>
-           <div>
-             しずかなインターネット：
-             <span id="todayShizukanaChars">0</span>字
-           </div>
-           <div>その他：<span id="todayOtherChars">0</span>字</div>
-         </div>
-       </section>
-       <section class="summary monthly-summary">
-         <strong>📅 今月の創作</strong>
+          <label>作品を選択</label>
+          <select id="workSelect"></select>
 
-         <div class="monthly-summary-main">
-           <div class="summary-item">
-             <span id="monthlyTouchedWorkCount" class="summary-number">0</span>
-             <span class="summary-label">触った作品</span>
-           </div>
+          <div class="work-detail-button">
+            <button
+              type="button"
+              class="secondary-btn"
+              onclick="showSelectedWorkDetail()"
+            >
+              作品詳細を見る
+            </button>
+          </div>
 
-           <div class="summary-item">
-             <span id="monthlyCharCount" class="summary-number">0</span>
-             <span class="summary-label">文字</span>
-           </div>
+          <label>新しい作品名</label>
+          <input
+            type="text"
+            id="newTitle"
+            placeholder="新しい作品の場合だけ入力"
+          />
 
-           <div class="summary-item">
-             <span id="monthlyLogCount" class="summary-number">0</span>
-             <span class="summary-label">ログ</span>
-           </div>
-         </div>
-       </section>
-       
-       <label>日付</label>
-       <input type="date" id="date" />
+          <label>作業</label>
+          <select id="workType">
+            <option value="新規">新規</option>
+            <option value="続き">続き</option>
+            <option value="推敲">推敲</option>
+            <option value="構成">構成</option>
+            <option value="公開">公開</option>
+          </select>
 
-       <label>種別</label>
-       <select id="platform">
-         <option value="note">note</option>
-         <option value="しずかなインターネット">しずかなインターネット</option>
-         <option value="その他">その他</option>
-       </select>
+          <label>文字数</label>
+          <input type="number" id="chars" placeholder="空欄でもOK" />
 
-       <label>作品を選択</label>
-       <select id="workSelect"></select>
-       <div class="work-detail-button">
-         <button
-           type="button"
-           class="secondary-btn"
-           onclick="showSelectedWorkDetail()"
-         >
-           作品詳細を見る
-         </button>
+          <label>メモ</label>
+          <textarea
+            id="memo"
+            placeholder="例：コメダで書き上げた"
+          ></textarea>
+
+          <button id="saveLogButton" onclick="saveLog()">
+            記録する
+          </button>
+
+          <button
+            id="cancelEditButton"
+            class="delete-btn"
+            onclick="cancelLogEdit()"
+            hidden
+          >
+            編集をキャンセル
+          </button>
+
+          <div class="work-actions">
+            <h2>作品管理</h2>
+
+            <label>選択中の作品名を編集</label>
+            <input
+              type="text"
+              id="editWorkTitle"
+              placeholder="作品名を変更する場合に入力"
+            />
+
+            <button onclick="updateWorkTitle()">
+              作品名を更新する
+            </button>
+
+            <button
+              class="delete-btn"
+              onclick="deleteSelectedWorkIfEmpty()"
+            >
+              ログのない作品を削除する
+            </button>
+          </div>
+
+          <h2>ログ一覧</h2>
+          <div id="logs"></div>
+        </main>
+
+        <aside class="dashboard-side">
+          <section class="summary" id="summary">
+            <strong>🌞 今日の創作</strong>
+
+            <div class="today-summary-main">
+              <div class="summary-item">
+                <span
+                  id="todayWorkCount"
+                  class="summary-number"
+                >
+                  0
+                </span>
+                <span class="summary-label">作品</span>
+              </div>
+
+              <div class="summary-item">
+                <span
+                  id="todayCharCount"
+                  class="summary-number"
+                >
+                  0
+                </span>
+                <span class="summary-label">文字</span>
+              </div>
+            </div>
+
+            <div class="today-summary-platforms">
+              <div>
+                note：<span id="todayNoteChars">0</span>字
+              </div>
+              <div>
+                しずかなインターネット：
+                <span id="todayShizukanaChars">0</span>字
+              </div>
+              <div>
+                その他：<span id="todayOtherChars">0</span>字
+              </div>
+            </div>
+          </section>
+
+          <section class="summary monthly-summary">
+            <strong>📅 今月の創作</strong>
+
+            <div class="monthly-summary-main">
+              <div class="summary-item">
+                <span
+                  id="monthlyTouchedWorkCount"
+                  class="summary-number"
+                >
+                  0
+                </span>
+                <span class="summary-label">触った作品</span>
+              </div>
+
+              <div class="summary-item">
+                <span
+                  id="monthlyCharCount"
+                  class="summary-number"
+                >
+                  0
+                </span>
+                <span class="summary-label">文字</span>
+              </div>
+
+              <div class="summary-item">
+                <span
+                  id="monthlyLogCount"
+                  class="summary-number"
+                >
+                  0
+                </span>
+                <span class="summary-label">ログ</span>
+              </div>
+            </div>
+          </section>
+        <!-- dashboard-sideの終了 -->
+        </aside>
+      <!-- dashboardの終了 -->
+      </div>
+    <!-- mainViewの終了 -->
+    </div> 
+   <!-- 作品詳細画面 -->
+   <section id="workDetailView" class="work-detail" hidden>
+     <button
+       type="button"
+       class="secondary-btn"
+       onclick="hideWorkDetail()"
+     >
+       ← 戻る
+     </button>
+     <h2 id="workDetailTitle"></h2>
+     <p id="workDetailPlatform" class="work-detail-platform"></p>
+     <div class="work-detail-summary">
+       <div class="summary-item">
+         <span id="workDetailTotalChars" class="summary-number">0</span>
+         <span class="summary-label">文字</span>
        </div>
-       
-       <label>新しい作品名</label>
-       <input type="text" id="newTitle" placeholder="新しい作品の場合だけ入力" />
-
-       <label>作業</label>
-       <select id="workType">
-         <option value="新規">新規</option>
-         <option value="続き">続き</option>
-         <option value="推敲">推敲</option>
-         <option value="構成">構成</option>
-         <option value="公開">公開</option>
-       </select>
-
-       <label>文字数</label>
-       <input type="number" id="chars" placeholder="空欄でもOK" />
-
-       <label>メモ</label>
-       <textarea id="memo" placeholder="例：コメダで書き上げた"></textarea>
-
-       <button id="saveLogButton" onclick="saveLog()">記録する</button>
-
-       <button
-         id="cancelEditButton"
-         class="delete-btn"
-         onclick="cancelLogEdit()"
-         hidden
-       >
-         編集をキャンセル
-       </button>
-       
-       <div class="work-actions">
-         <h2>作品管理</h2>
-
-         <label>選択中の作品名を編集</label>
-         <input type="text" id="editWorkTitle" placeholder="作品名を変更する場合に入力" />
-
-         <button onclick="updateWorkTitle()">作品名を更新する</button>
-         <button class="delete-btn" onclick="deleteSelectedWorkIfEmpty()">ログのない作品を削除する</button>
+       <div class="summary-item">
+         <span id="workDetailLogCount" class="summary-number">0</span>
+         <span class="summary-label">ログ</span>
        </div>
-
-       <h2>ログ一覧</h2>
-       <div id="logs"></div>
      </div>
-     <section id="workDetailView" class="work-detail" hidden>
-       <button
-         type="button"
-         class="secondary-btn"
-         onclick="hideWorkDetail()"
-       >
-         ← 戻る
-       </button>
-
-       <h2 id="workDetailTitle"></h2>
-       <p id="workDetailPlatform" class="work-detail-platform"></p>
-
-       <div class="work-detail-summary">
-         <div class="summary-item">
-           <span id="workDetailTotalChars" class="summary-number">0</span>
-           <span class="summary-label">文字</span>
-         </div>
-
-         <div class="summary-item">
-           <span id="workDetailLogCount" class="summary-number">0</span>
-           <span class="summary-label">ログ</span>
-         </div>
-       </div>
-
-       <h3 class="work-detail-subtitle">ログ一覧</h3>
-       <div id="workDetailLogs"></div>
-     </section>
+     <h3 class="work-detail-subtitle">ログ一覧</h3>
+     <div id="workDetailLogs"></div>
+    </section>   
+  <!-- appの終了 -->
   </div>
   <script src="js/scl.js" charset="utf-8"></script>
 </body>

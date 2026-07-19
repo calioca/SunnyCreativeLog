@@ -31,6 +31,33 @@ label {
 }
 
 /* ========================================
+   ダッシュボード
+======================================== */
+
+.dashboard {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(280px, 1fr);
+  gap: 32px;
+  align-items: start;
+}
+
+.dashboard-main,
+.dashboard-side {
+  min-width: 0;
+}
+
+.dashboard-side {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.dashboard-side .summary {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+/* ========================================
    入力フォーム
 ======================================== */
 input, select, textarea, button {
@@ -281,4 +308,16 @@ button:hover{
   width: auto;
   padding: 8px 14px;
   margin-top: 0px;
+}
+
+
+
+/* ========================================
+   レスポンシブ
+======================================== */
+
+@media (max-width: 900px) {
+  .dashboard {
+    grid-template-columns: 1fr;
+  }
 }
