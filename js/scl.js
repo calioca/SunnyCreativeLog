@@ -190,8 +190,26 @@ function saveLog() {
 
 /* 創作ログを削除する */
 function deleteLog(id) {
-  const logs = getLogs().filter(log => log.id !== id);
-  saveLogs(logs);
+  const logs = getLogs();
+  const targetLog = logs.find(log => log.id === id);
+
+  if (!targetLog) {
+    alert("削除するログが見つかりません。");
+    return;
+  }
+
+  const confirmed = confirm("このログを削除しますか？");
+
+  if (!confirmed) {
+    return;
+  }
+
+  const updatedLogs = logs.filter(log => log.id !== id);
+
+  saveLogs(updatedLogs);
+
+  removeWorkIfNoLogs(targetLog.workId, updatedLogs);
+
   render();
 }
 
@@ -306,9 +324,32 @@ function updateWorkTitle() {
   render();
 }
 
+/* 指定した作品に創作ログがあるか確認する */
+function workHasLogs(workId, logs = getLogs()) {
+  return logs.some(
+    log => String(log.workId) === String(workId)
+  );
+}
+
+/* 創作ログが残っていない作品を削除する */
+function removeWorkIfNoLogs(workId, logs) {
+  if (workHasLogs(workId, logs)) {
+    return;
+  }
+
+  const works = getWorks();
+
+  const updatedWorks = works.filter(
+    work => String(work.id) !== String(workId)
+  );
+
+  saveWorks(updatedWorks);
+}
+
 /* 創作ログのない作品を削除する */
 function deleteSelectedWorkIfEmpty() {
-  const selectedWorkId = document.getElementById("workSelect").value;
+  const selectedWorkId =
+    document.getElementById("workSelect").value;
 
   if (!selectedWorkId) {
     alert("作品を選択してください。");
@@ -316,33 +357,35 @@ function deleteSelectedWorkIfEmpty() {
   }
 
   const logs = getLogs();
-  const hasLogs = logs.some(log => String(log.workId) === selectedWorkId);
 
-  if (hasLogs) {
+  if (workHasLogs(selectedWorkId, logs)) {
     alert("創作ログがある作品は削除できません。");
     return;
   }
 
   const works = getWorks();
-  const work = works.find(w => String(w.id) === selectedWorkId);
+  const work = works.find(
+    work => String(work.id) === String(selectedWorkId)
+  );
 
   if (!work) {
     alert("作品が見つかりません。");
     return;
   }
 
-  const confirmed = confirm(`「${work.title}」を削除しますか？`);
+  const confirmed =
+    confirm(`「${work.title}」を削除しますか？`);
 
-  if (!confirmed) return;
+  if (!confirmed) {
+    return;
+  }
 
-  const updatedWorks = works.filter(w => String(w.id) !== selectedWorkId);
-  saveWorks(updatedWorks);
+  removeWorkIfNoLogs(selectedWorkId, logs);
 
   document.getElementById("editWorkTitle").value = "";
 
   render();
 }
-
 
 // ========================================
 // 画面表示
