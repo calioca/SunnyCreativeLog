@@ -1,0 +1,327 @@
+@charset "UTF-8";
+/* ========================================
+   基本設定
+======================================== */
+
+/* ========================================
+   全体レイアウト
+======================================== */
+body {
+      margin: 0;
+      font-family: system-ui, sans-serif;
+      background: #fff3bf;
+      color: #595651;
+      padding: 24px;
+}
+
+.app {
+  max-width: 720px;
+  margin: 0 auto;
+  background: #fffdf6;
+  border-radius: 24px;
+  padding: 24px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+label {
+  display: block;
+  margin-top: 16px;
+  font-weight: bold;
+}
+
+/* ========================================
+   ヘッダー
+======================================== */
+h1 {
+  margin-top: 0;
+  font-size: 1.8rem;
+}
+
+/* ========================================
+   ダッシュボード
+======================================== */
+.dashboard {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(280px, 1fr);
+  gap: 32px;
+  align-items: start;
+}
+
+.dashboard-main,
+.dashboard-side {
+  min-width: 0;
+}
+
+.dashboard-side {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.dashboard-side .summary {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+/* ========================================
+   フォーム
+======================================== */
+input, 
+select,
+textarea,
+button {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  margin-top: 6px;
+  padding: 10px;
+  border-radius: 12px;
+  border: 1px solid #f2d878;
+  font-size: 1rem;
+}
+
+input[type="date"] {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  display: block;
+  appearance: none;
+  -webkit-appearance: none;
+  color: #595651;
+  background-color: #fff;
+}
+
+textarea {
+  min-height: 70px;
+}
+
+/* ========================================
+   ボタン
+======================================== */
+button {
+  margin-top: 20px;
+  background: #f2ca50;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+button:hover{
+  background: #f2b905;
+}
+
+.edit-btn {
+  background: #f2ca50;
+  color: #595651;
+}
+
+.delete-btn {
+  background: #ccc;
+  color: #595651;
+  margin-top: 12px;
+}
+
+.secondary-btn {
+  width: auto;
+  padding: 8px 14px;
+  margin-top: 0;
+}
+
+.work-detail-button {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 8px;
+}
+
+/* ========================================
+   サマリー(今日・今月の創作)  
+======================================== */
+.summary {
+  margin-top: 24px;
+  padding: 16px;
+  background: #fff0ad;
+  border-radius: 16px;
+}
+
+.summary-item {
+  text-align: center;
+}
+
+.summary-number {
+  display: block;
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.summary-label {
+  display: block;
+  margin-top: 4px;
+  font-size: 0.9rem;
+  color: #7a756d;
+}
+
+.today-summary-main {
+  display: flex;
+  gap: 24px;
+  margin-top: 8px;
+  justify-content: space-evenly;
+}
+
+.today-summary-main .summary-item {
+  text-align: center;
+}
+
+.today-summary-main .summary-number {
+  display: block;
+  font-size: 1.4rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.today-summary-main .summary-label {
+  display: block;
+  margin-top: 4px;
+  font-size: 0.85rem;
+  color: #7a756d;
+}
+
+.today-summary-platforms {
+  margin-top: 10px;
+}
+
+.monthly-summary {
+  margin-top: 16px;
+}
+
+.monthly-summary-main {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 12px;
+}
+
+/* ========================================
+   作品管理
+======================================== */
+.work-actions {
+  margin-top: 28px;
+  padding: 16px;
+  border: 1px dashed #f2d878;
+  border-radius: 16px;
+  background: #fffaf0;
+}
+
+.work-actions h2 {
+  margin-top: 0;
+  font-size: 1.2rem;
+}
+
+/* ========================================
+   ログ一覧
+======================================== */
+.log {
+  margin-top: 16px;
+  padding: 16px;
+  border: 1px solid #f2d878;
+  border-radius: 16px;
+  background: #fff;
+}
+
+.log-title {
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.log-meta {
+  margin-top: 6px;
+  color: #595651;
+  font-size: 0.9rem;
+}
+
+.log-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.log-actions button {
+  width: auto;
+  min-width: 70px;
+  margin: 0;
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  border-radius: 10px;
+}
+
+/* ========================================
+   作品詳細
+======================================== */
+.work-detail {
+  padding: 12px 24px 24px;
+}
+
+.work-detail h2 {
+  margin-top: 18px;
+  margin-bottom: 8px;
+}
+
+.work-detail h3 {
+  margin-top: 4px;
+  font-size: 1.4rem;
+}
+
+.work-detail-platform {
+  margin: 4px 0 0;
+  color: #7a756d;
+  font-size: 0.9rem;
+}
+
+.work-detail-summary {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 18px 0;
+  padding: 16px;
+  border: 1px solid #f2d878;
+  border-radius: 16px;
+  background: #fff;
+}
+
+.work-detail-subtitle {
+  margin-top: 24px;
+  margin-bottom: 8px;
+  font-size: 1.1rem;
+}
+
+.work-detail-log {
+  padding: 8px 0;
+  border-bottom: 1px solid #eee3c8;
+}
+
+.work-detail-log:last-child {
+  border-bottom: none;
+}
+
+.work-detail-log-meta {
+  font-size: 0.85rem;
+  color: #7a756d;
+}
+
+.work-detail-log p {
+  margin: 8px 0 0;
+}
+
+.empty-message {
+  color: #7a756d;
+}
+
+/* ========================================
+   レスポンシブ
+======================================== */
+
+@media (max-width: 900px) {
+  .dashboard {
+    grid-template-columns: 1fr;
+  }
+}
