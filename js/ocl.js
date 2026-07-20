@@ -43,6 +43,14 @@ function migrateLocalStorage() {
   if (oldLogs !== null && newLogs === null) {
     localStorage.setItem(LOGS_KEY, oldLogs);
   }
+
+  if (localStorage.getItem(WORKS_KEY) !== null) {
+    localStorage.removeItem(OLD_WORKS_KEY);
+  }
+
+  if (localStorage.getItem(LOGS_KEY) !== null) {
+    localStorage.removeItem(OLD_LOGS_KEY);
+  }
 }
 
 // ========================================
