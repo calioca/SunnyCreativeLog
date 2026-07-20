@@ -2,9 +2,6 @@
 // 定数・状態
 // ========================================
 
-const OLD_WORKS_KEY = "sclWorks";
-const OLD_LOGS_KEY = "sclLogs";
-
 const WORKS_KEY = "oclWorks";
 const LOGS_KEY = "oclLogs";
 let editingLogId = null;
@@ -23,34 +20,6 @@ function getLocalDateString() {
   const day = String(date.getDate()).padStart(2, "0");
 
   return `${year}-${month}-${day}`;
-}
-
-// ========================================
-// データ移行
-// ========================================
-/* 旧LocalStorageキーのデータを新キーへ移行する */
-function migrateLocalStorage() {
-  const oldWorks = localStorage.getItem(OLD_WORKS_KEY);
-  const oldLogs = localStorage.getItem(OLD_LOGS_KEY);
-
-  const newWorks = localStorage.getItem(WORKS_KEY);
-  const newLogs = localStorage.getItem(LOGS_KEY);
-
-  if (oldWorks !== null && newWorks === null) {
-    localStorage.setItem(WORKS_KEY, oldWorks);
-  }
-
-  if (oldLogs !== null && newLogs === null) {
-    localStorage.setItem(LOGS_KEY, oldLogs);
-  }
-
-  if (localStorage.getItem(WORKS_KEY) !== null) {
-    localStorage.removeItem(OLD_WORKS_KEY);
-  }
-
-  if (localStorage.getItem(LOGS_KEY) !== null) {
-    localStorage.removeItem(OLD_LOGS_KEY);
-  }
 }
 
 // ========================================
@@ -619,7 +588,7 @@ function hideWorkDetail() {
 // ========================================
 // 初期化
 // ========================================
-migrateLocalStorage();  //データ移行
+
 const today = getLocalDateString();
 dateInput.value = today;
 
